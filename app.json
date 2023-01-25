@@ -17,8 +17,9 @@
     "env": {
       "CONFIG_FILE_URL":{
       "description": "your config file url",
+      "value": "your config url",
       "required": true
-    },
+    }Q
     },
     "formation": {
       "worker": {
