@@ -43,8 +43,7 @@ if len(CONFIG_ENV_URL) != 0:
         LOGGER(__name__).error(f"Config ENV URL: {err}")
 else:
     LOGGER(__name__).warning("Config ENV URL Not Provided, Proceeding without it!")
-
-load_dotenv("config.env", override=True)
+    load_dotenv("config.env", override=True)
     ADMIN = os.environ.get("ADMINS", '')
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
