@@ -19,6 +19,7 @@
       "description": "your config file url",
       "required": true
     },
+    },
     "formation": {
       "worker": {
         "quantity": 1,
