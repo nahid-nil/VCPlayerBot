@@ -28,9 +28,30 @@ except ModuleNotFoundError:
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
+def getConfig(name: str):
+    return environ[name]
+
+CONFIG_FILE_URL = environ.get('CONFIG_FILE_URL')
+
+try:
+    if len(CONFIG_FILE_URL) == 0:
+        raise TypeError
+    try:
+        res = rget(CONFIG_FILE_URL)
+        if res.status_code == 200:
+            with open('config.env', 'wb+') as f:
+                f.write(res.content)
+            log_info("Succesfully got config.env from CONFIG_FILE_URL")
+        else:
+            log_error(f"Failed to download config.env {res.status_code}")
+    except Exception as e:
+        log_error(f"CONFIG_FILE_URL: {e}")
+except:
+    pass
+
 class Config:
     #Telegram API Stuffs
-    load_dotenv()  # load enviroment variables from .env file
+    load_dotenv()  # load enviroment variables from config.env file
     ADMIN = os.environ.get("ADMINS", '')
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
